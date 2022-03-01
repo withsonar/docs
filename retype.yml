@@ -1,0 +1,27 @@
+input: .
+output: .retype
+url: docs.withsonar.com
+
+branding:
+  logo: /static/sonar-logo.svg
+  logoDark: /static/sonar-logo-dark.svg
+  label: v1.0.1
+
+meta:
+  title: ' - Official Sonar Documentation'
+
+links:
+  - text: Getting Started
+    link: https://retype.com/guides/getting-started/
+  - text: Fashion Demo
+    link: https://fashion.withsonar.com/
+footer:
+  copyright: '&copy; Copyright {{ year }} SONAR SERVICES. All rights reserved.'
+  links:
+    - text: About
+      link: about.md
+integrations:
+  googleAnalytics:
+    id: G-XXX
+  plausible:
+    domain: docs.withsonar.com
