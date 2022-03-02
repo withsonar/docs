@@ -13,8 +13,6 @@ meta:
 links:
   - text: Getting Started
     link: https://retype.com/guides/getting-started/
-  - text: Fashion Demo
-    link: https://fashion.withsonar.com/
 footer:
   copyright: '&copy; Copyright {{ year }} SONAR SERVICES. All rights reserved.'
   links:
