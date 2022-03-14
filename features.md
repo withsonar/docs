@@ -75,6 +75,10 @@ icon: 'zap'
 - High scores in Lighthouse
 - Fully documented (installation, migration, improvement, deployment)
 - Theme/website customisation made easy with Sanity (in the Settings)
-- Multiple environments (development, production)
+- Vercel multiple environments (development, production)
+- Sanity multiple environments (development, production)
 - Automatic data backup
 - Possibility to create script to migrate data faster via Sanity mutations
+- PWA (via `next-pwa`)
+- Offline page (handled by PWA set up)
+-

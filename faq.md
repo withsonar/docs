@@ -1,4 +1,5 @@
 ---
+order: 250
 icon: question
 label: FAQ
 ---
@@ -17,3 +18,7 @@ While not as easy as Netlify, what I prefer to do is:
 ## How can I see the bundle size of my website?
 
 Simply run `npm run analyze` from the project folder. This will run a build of your site and automatically open the [Webpack Bundle Analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) visuals for your site's build files.
+
+## How can I change the subdomain for a sanity-hosted studio?
+
+`sanity undeploy && sanity deploy` would give you the opportunity to choose a new subdomain. Technically there’s the opportunity for the original name to be taken during that time (if you decided you wanted to go back)
