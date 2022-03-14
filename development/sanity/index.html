@@ -27,11 +27,12 @@
     
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="/resources/css/retype.css?v=1.11.2.699528572818" rel="stylesheet" data-turbo-track="reload" />
+    <link href="/resources/css/retype.css?v=1.11.2.700565129662" rel="stylesheet" data-turbo-track="reload" />
 
-    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.699528572818" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.700565129662" defer data-turbo-track="reload"></script>
     <script type="text/javascript" src="/resources/js/retype.js?v=1.11.2" defer data-turbo-track="reload"></script>
-    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.699528572818" defer></script>
+    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.700565129662" defer></script>
+    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.11.2.700565129662" defer></script>
 </head>
     <body>
         <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -204,10 +205,94 @@
         </div>
         <div class="pr-5 ml-3">
             <h5>Note</h5>
-<p>If you did not manually set up your project, the <code v-pre>projectId</code> in <code v-pre>/studio/sanity.json</code> will still be set to the HULL demo project. Make sure to update this before starting the studio, otherwise you will be denied access when trying to access your studio.</p>
+<p>If you did not manually set up your project, the <code v-pre>projectId</code> in <code v-pre>/studio/sanity.json</code> will still be set to the demo project. Make sure to update this before starting the studio, otherwise you will be denied access when trying to access your studio.</p>
         </div>
     </div>
 </div>
+<doc-anchor-target id="setup-a-staging-dataset">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#setup-a-staging-dataset">#</doc-anchor-trigger>
+        <span>Setup a staging dataset</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="start-by-exportingcopying-your-production-dataset">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#start-by-exportingcopying-your-production-dataset">#</doc-anchor-trigger>
+        <span>Start by exporting/copying your production dataset</span>
+    </h3>
+</doc-anchor-target>
+<p>You likely already have a dataset named <code v-pre>production</code>, lets create a new one named <code v-pre>staging</code> and import the data from your production database to your staging database.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none"># Inside your SANITY studio folder
+# Follow prompts to create a new dataset
+
+sanity dataset create
+
+# Export your production database
+
+sanity dataset export
+
+# Import your dataset into the staging environment
+
+sanity dataset import production.tar.gz staging</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="setup-the-spaces-api">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#setup-the-spaces-api">#</doc-anchor-trigger>
+        <span>Setup the spaces API</span>
+    </h3>
+</doc-anchor-target>
+<p>Here is an example of the code you would need to add to your <code v-pre>sanity.json</code> config file to activate the spaces feature.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">// In your sanity.json file add
+&quot;__experimental_spaces&quot;: [
+  {
+    &quot;name&quot;: &quot;production&quot;,
+    &quot;title&quot;: &quot;Production&quot;,
+    &quot;default&quot;: true,
+    &quot;api&quot;: {
+      &quot;projectId&quot;: &quot;abcd1234&quot;, // replace with your projectId
+      &quot;dataset&quot;: &quot;production&quot;
+    }
+  },
+  {
+    &quot;name&quot;: &quot;staging&quot;,
+    &quot;title&quot;: &quot;Staging&quot;,
+    &quot;api&quot;: {
+      &quot;projectId&quot;: &quot;abcd1234&quot;, // replace with your projectId
+      &quot;dataset&quot;: &quot;staging&quot;
+    }
+  }
+],</code></pre>
+</doc-codeblock></div>
+<p>Restart your SANITY studio and you should now see a dropdown menu to switch between datasets in the top menu bar.</p>
+<p>More information:</p>
+<p>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">Multi-environment deployments</span>
+    </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>https://www.sanity.io/guides/multi-environment-deployments</span>
+    </div>
+    <a href="https://www.sanity.io/guides/multi-environment-deployments" target="_blank" class="absolute block inset-0"></a>
+</div>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">How to setup a staging website with SANITY</span>
+    </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>https://www.erichowey.dev/writing/how-to-setup-a-staging-website-with-SANITY/</span>
+    </div>
+    <a href="https://www.erichowey.dev/writing/how-to-setup-a-staging-website-with-SANITY/" target="_blank" class="absolute block inset-0"></a>
+</div>
+</p>
 
 
 
@@ -283,6 +368,6 @@
 
         <div id="docs-overlay-target"></div>
 
-        <script>window.__DOCS__ = { "title": "Sanity", icon: "file", hasPrism: false, hasMermaid: false, hasMath: false }</script>
+        <script>window.__DOCS__ = { "title": "Sanity", icon: "file", hasPrism: true, hasMermaid: false, hasMath: false }</script>
     </body>
 </html>
